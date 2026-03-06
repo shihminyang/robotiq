@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(robotiq_2f_gripper_control)
-find_package(catkin REQUIRED COMPONENTS robotiq_ethercat roscpp rospy message_generation)
+## find_package(catkin REQUIRED COMPONENTS robotiq_ethercat roscpp rospy message_generation)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy message_generation)
 
 
 add_message_files(
@@ -13,8 +14,12 @@ catkin_python_setup()
 
 generate_messages()
 
+## catkin_package(
+##     CATKIN_DEPENDS rospy message_runtime roscpp robotiq_ethercat
+##     INCLUDE_DIRS include
+## )
 catkin_package(
-    CATKIN_DEPENDS rospy message_runtime roscpp robotiq_ethercat
+    CATKIN_DEPENDS rospy message_runtime roscpp
     INCLUDE_DIRS include
 )
 
@@ -23,18 +28,17 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(robotiq_2f_gripper_ethercat_node
-  src/robotiq_2f_gripper_control/robotiq_2f_gripper_ethercat_node.cpp
-  src/robotiq_2f_gripper_control/robotiq_2f_gripper_ethercat_client.cpp
-)
+## add_executable(robotiq_2f_gripper_ethercat_node
+##   src/robotiq_2f_gripper_control/robotiq_2f_gripper_ethercat_node.cpp
+##   src/robotiq_2f_gripper_control/robotiq_2f_gripper_ethercat_client.cpp
+## )
 
-target_link_libraries(robotiq_2f_gripper_ethercat_node
-  ${robotiq_ethercat_LIBRARIES}
-  ${catkin_LIBRARIES}
+## target_link_libraries(robotiq_2f_gripper_ethercat_node
+##   ${robotiq_ethercat_LIBRARIES}
+##   ${catkin_LIBRARIES}
+## )
 
-)
-
-add_dependencies(robotiq_2f_gripper_ethercat_node robotiq_2f_gripper_control_generate_messages_cpp)
+## add_dependencies(robotiq_2f_gripper_ethercat_node robotiq_2f_gripper_control_generate_messages_cpp)
 
 install(PROGRAMS nodes/Robotiq2FGripperSimpleController.py nodes/Robotiq2FGripperStatusListener.py
   nodes/Robotiq2FGripperTcpNode.py nodes/Robotiq2FGripperRtuNode.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
